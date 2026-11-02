@@ -1,0 +1,10 @@
+{
+  "name": "ayushdev-city-life-3d",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A lightweight Three.js open-city game prototype by AyushDev",
+  "scripts": {
+    "start": "python -m http.server 8000"
+  }
+}

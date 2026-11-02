@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#101a26" />
+  <title>City Life 3D — Made by AyushDev</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main id="game-shell">
+    <div id="game-root" aria-label="City Life 3D game"></div>
+
+    <header id="topbar" class="hud hidden">
+      <div class="brand-block">
+        <div class="brand-mark">CL</div>
+        <div>
+          <div class="brand-name">CITY LIFE <span>3D</span></div>
+          <div class="brand-credit">MADE BY AYUSHDEV</div>
+        </div>
+      </div>
+      <div class="mission-pill">
+        <span class="mission-dot"></span>
+        <span id="mission-text">TAG 5 RIVALS</span>
+        <b id="mission-count">0 / 5</b>
+      </div>
+      <div class="top-actions">
+        <div class="cash-box"><small>CREDITS</small><strong id="credits">000250</strong></div>
+        <button id="pause-btn" class="ui-icon-btn" aria-label="Pause game" title="Pause">Ⅱ</button>
+      </div>
+    </header>
+
+    <section id="map-panel" class="hud hidden" aria-label="Minimap">
+      <div class="map-heading"><span>NEIGHBOURHOOD</span><span id="zone-name">DOWNTOWN</span></div>
+      <canvas id="minimap" width="220" height="160"></canvas>
+    </section>
+
+    <div id="speed-panel" class="hud hidden">
+      <div class="speed-number"><span id="speed-value">0</span><small>KM/H</small></div>
+      <div class="speed-label">CITY CRUISER</div>
+    </div>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <section id="touch-controls" class="hud hidden" aria-label="Touch controls">
+      <div class="left-controls">
+        <div id="joystick" class="joystick" aria-label="Movement joystick">
+          <div class="joy-ring"></div>
+          <div id="joy-knob" class="joy-knob"></div>
+          <span class="joy-label">MOVE</span>
+        </div>
+      </div>
+      <div class="right-controls">
+        <button id="tag-btn" class="action-btn primary-action"><span class="action-symbol">◎</span><span>TAG</span></button>
+        <button id="jump-btn" class="action-btn"><span class="action-symbol">↥</span><span>JUMP</span></button>
+        <button id="run-btn" class="action-btn"><span class="action-symbol">»</span><span>RUN</span></button>
+        <button id="drive-btn" class="action-btn wide-action"><span class="action-symbol">▰</span><span>DRIVE</span></button>
+      </div>
+    </section>
+
+    <div id="desktop-hints" class="hud hidden">
+      <span><b>WASD</b> MOVE</span><span><b>SHIFT</b> RUN</span><span><b>SPACE</b> JUMP</span><span><b>E</b> DRIVE</span><span><b>F</b> TAG</span>
+    </div>
+
+    <section id="intro-screen" class="screen-layer">
+      <div class="intro-card">
+        <div class="intro-topline"><span>AYUSHDEV ORIGINAL</span><span>OPEN CITY PROJECT · 01</span></div>
+        <button id="intro-close" class="close-btn" aria-label="Close introduction" title="Close">×</button>
+        <div class="intro-art">
+          <div class="art-sun"></div>
+          <div class="art-cloud cloud-one"></div><div class="art-cloud cloud-two"></div>
+          <div class="art-tower tower-one"></div><div class="art-tower tower-two"></div><div class="art-tower tower-three"></div>
+          <div class="art-house house-one"></div><div class="art-house house-two"></div>
+          <div class="art-road"></div>
+          <div class="art-car"><i></i><b></b></div>
+          <div class="art-title">CITY<br/><em>LIFE</em></div>
+          <div class="art-subtitle">AN OPEN WORLD TO EXPLORE</div>
+        </div>
+        <div class="intro-content">
+          <div class="intro-copy">
+            <div class="eyebrow">WELCOME TO YOUR CITY</div>
+            <h1>Make the city<br/><span>your own.</span></h1>
+            <p>Explore colourful streets, meet people, cruise around town and complete city challenges. Your world starts here.</p>
+            <div class="feature-row"><span>OPEN WORLD</span><span>DRIVE CARS</span><span>DAYLIGHT CITY</span></div>
+          </div>
+          <div class="intro-buttons">
+            <button id="start-btn" class="start-btn">ENTER THE CITY <span>↗</span></button>
+            <button id="how-btn" class="text-btn">HOW TO PLAY</button>
+          </div>
+        </div>
+        <div id="how-panel" class="how-panel hidden">
+          <button id="how-close" class="how-close" aria-label="Close controls">×</button>
+          <strong>HOW TO PLAY</strong>
+          <p>Move with the joystick or WASD. Use RUN to move faster and JUMP to hop. Stand near a car and tap DRIVE to enter or exit. Get close to a red-marked rival and use TAG to send them to the safe zone. Complete the challenge and explore freely.</p>
+        </div>
+        <div class="intro-footer"><span>MADE BY AYUSHDEV</span><span>THREE.JS · MOBILE READY</span></div>
+      </div>
+    </section>
+
+    <section id="pause-screen" class="screen-layer hidden">
+      <div class="pause-card">
+        <div class="eyebrow">CITY LIFE 3D</div>
+        <h2>PAUSED</h2>
+        <p>Your city is waiting.</p>
+        <button id="resume-btn" class="start-btn">RESUME GAME <span>↗</span></button>
+        <button id="restart-btn" class="text-btn">RESTART CITY</button>
+      </div>
+    </section>
+
+    <section id="rotate-screen" class="rotate-layer hidden">
+      <div class="rotate-card"><div class="rotate-icon">▱</div><strong>ROTATE YOUR PHONE</strong><p>City Life 3D is designed to play in landscape mode.</p></div>
+    </section>
+
+    <section id="loading-screen" class="loading-layer">
+      <div class="loading-brand">CITY LIFE <span>3D</span></div>
+      <div class="loading-bar"><i id="loading-fill"></i></div>
+      <small id="loading-text">BUILDING YOUR CITY...</small>
+    </section>
+  </main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
